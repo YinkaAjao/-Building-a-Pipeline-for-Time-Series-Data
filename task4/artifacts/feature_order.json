@@ -1,0 +1,16 @@
+{
+  "feature_order": [
+    "Population",
+    "Inflation",
+    "Unemployment",
+    "Exports",
+    "Imports",
+    "GDP_lag_1",
+    "GDP_lag_3",
+    "GDP_lag_7",
+    "GDP_ma_3",
+    "GDP_ma_7",
+    "day_of_week",
+    "month"
+  ]
+}

@@ -19,6 +19,15 @@ Target variable: **Gross Domestic Product (GDP)**
 │   ├── mysql_setup.py                 #   MySQL: setup, load data, run queries
 │   ├── mongodb_setup.py               #   MongoDB: setup, load data, run queries
 │   └── requirements.txt               #   Python dependencies for Task 2
+├── task4/                             # Task 4: End-to-end prediction script
+│   ├── predict_from_api.py            #   Fetch API data -> preprocess -> load model -> predict
+│   ├── requirements.txt               #   Python dependencies for Task 4
+│   ├── README.md                      #   Task 4 usage instructions
+│   └── artifacts/                     #   Model and preprocessing artifacts
+│       ├── preprocess_config.json     #   Preprocessing + feature engineering settings
+│       ├── feature_order.json         #   Feature order expected by model
+│       ├── model.joblib               #   Trained model (add after training)
+│       └── scaler.joblib              #   Optional scaler (if used in training)
 └── README.md
 ```
 
@@ -80,3 +89,26 @@ Single collection `economic_records` with embedded subdocuments:
 | 3 | Average GDP by currency / Records per country | GROUP BY + AVG | $group aggregation |
 | 4 | Latest record for a country | ORDER BY year DESC LIMIT 1 | find_one + sort |
 | 5 | GDP with exchange rates over decades / Avg GNI by currency | 3-table JOIN | $match + $group |
+
+## Task 4 — Prediction/Forecast Script
+
+The Task 4 pipeline script is in `task4/predict_from_api.py` and performs:
+
+1. Fetching time-series records from an API endpoint
+2. Preprocessing with lag and moving-average features (aligned with Task 1 style)
+3. Loading trained model artifacts (`model.joblib`, optional `scaler.joblib`)
+4. Generating a prediction/forecast
+
+### Setup
+
+```bash
+pip install -r task4/requirements.txt
+```
+
+### Example Run
+
+```bash
+python task4/predict_from_api.py --api_url "http://localhost:8000/api/sql/records/range" --start_date "2015-01-01" --end_date "2021-12-31"
+```
+
+See `task4/README.md` for full details.
