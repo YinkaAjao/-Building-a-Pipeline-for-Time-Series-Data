@@ -19,6 +19,10 @@ Target variable: **Gross Domestic Product (GDP)**
 │   ├── mysql_setup.py                 #   MySQL: setup, load data, run queries
 │   ├── mongodb_setup.py               #   MongoDB: setup, load data, run queries
 │   └── requirements.txt               #   Python dependencies for Task 2
+├── task3/                             # Task 3: API endpoints for time-series queries
+│   ├── api_demo.py                    #   FastAPI demo endpoints (latest, range, records)
+│   ├── README.md                      #   API run instructions
+│   └── requirements.txt               #   Python dependencies for Task 3
 ├── task4/                             # Task 4: End-to-end prediction script
 │   ├── predict_from_api.py            #   Fetch API data -> preprocess -> load model -> predict
 │   ├── requirements.txt               #   Python dependencies for Task 4
@@ -112,3 +116,18 @@ python task4/predict_from_api.py --api_url "http://localhost:8000/api/sql/record
 ```
 
 See `task4/README.md` for full details.
+
+## Task 3 — Demo API Endpoints
+
+To run the demo API used by Task 4:
+
+```bash
+pip install -r task3/requirements.txt
+uvicorn task3.api_demo:app --reload --port 8000
+```
+
+Supported endpoints:
+
+- `GET /api/sql/records?country=United%20States`
+- `GET /api/sql/records/latest?country=United%20States`
+- `GET /api/sql/records/range?country=United%20States&start_date=2015-01-01&end_date=2021-12-31`

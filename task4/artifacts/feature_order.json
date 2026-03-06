@@ -1,10 +1,12 @@
 {
   "feature_order": [
     "Population",
-    "Inflation",
-    "Unemployment",
+    "AMA_exchange_rate",
+    "IMF_exchange_rate",
+    "Per_capita_GNI",
     "Exports",
     "Imports",
+    "GNI_USD",
     "GDP_lag_1",
     "GDP_lag_3",
     "GDP_lag_7",

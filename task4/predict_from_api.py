@@ -35,6 +35,11 @@ def preprocess_like_training(df: pd.DataFrame, cfg: dict) -> pd.DataFrame:
     lags = cfg.get("lags", [1, 3, 7])
     moving_average_windows = cfg.get("moving_average_windows", [3, 7])
 
+    if timestamp_col not in df.columns:
+        raise ValueError(f"Timestamp column '{timestamp_col}' not found in API payload.")
+    if target_col not in df.columns:
+        raise ValueError(f"Target column '{target_col}' not found in API payload.")
+
     df[timestamp_col] = pd.to_datetime(df[timestamp_col], errors="coerce")
     df = df.dropna(subset=[timestamp_col]).sort_values(timestamp_col).reset_index(drop=True)
 
@@ -87,13 +92,14 @@ def make_prediction(df: pd.DataFrame, model, scaler, feature_order: list[str]):
     feature_values = scaler.transform(latest_features) if scaler is not None else latest_features.values
 
     prediction = model.predict(feature_values)
+    prediction_value = prediction[0].item() if hasattr(prediction[0], "item") else prediction[0]
 
     confidence = None
     if hasattr(model, "predict_proba"):
         probabilities = model.predict_proba(feature_values)
         confidence = float(np.max(probabilities))
 
-    return float(prediction[0]), confidence
+    return prediction_value, confidence
 
 
 def parse_args():

@@ -3,10 +3,12 @@
   "target_col": "GDP",
   "base_features": [
     "Population",
-    "Inflation",
-    "Unemployment",
+    "AMA_exchange_rate",
+    "IMF_exchange_rate",
+    "Per_capita_GNI",
     "Exports",
-    "Imports"
+    "Imports",
+    "GNI_USD"
   ],
   "lags": [1, 3, 7],
   "moving_average_windows": [3, 7]
