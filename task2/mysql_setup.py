@@ -7,8 +7,8 @@ import mysql.connector
 
 # my local mysql settings - change the password if yours is different
 DB_HOST = 'localhost'
-DB_USER = 'root'
-DB_PASSWORD = ''
+DB_USER = 'economy_user'
+DB_PASSWORD = 'economy_pass'
 DB_NAME = 'global_economy_db'
 CSV_PATH = '../Global Economy Indicators.csv'
 
