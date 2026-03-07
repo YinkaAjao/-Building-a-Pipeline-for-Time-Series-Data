@@ -1,14 +1,14 @@
 """
-Task 3 — API Endpoints for CRUD and Time-Series Queries
+Task 3 - API Endpoints for CRUD and Time-Series Queries
 
 Full CRUD operations (POST, GET, PUT, DELETE) for both MySQL and MongoDB
 databases created in Task 2.  Each database exposes:
-  - POST   /api/{db}/records          — Create a record
-  - GET    /api/{db}/records           — Read all records for a country
-  - GET    /api/{db}/records/latest    — Read the latest record
-  - GET    /api/{db}/records/range     — Read records in a date range
-  - PUT    /api/{db}/records/{id}      — Update a record
-  - DELETE /api/{db}/records/{id}      — Delete a record
+  - POST   /api/{db}/records          - Create a record
+  - GET    /api/{db}/records           - Read all records for a country
+  - GET    /api/{db}/records/latest    - Read the latest record
+  - GET    /api/{db}/records/range     - Read records in a date range
+  - PUT    /api/{db}/records/{id}      - Update a record
+  - DELETE /api/{db}/records/{id}      - Delete a record
 """
 
 import os
@@ -23,9 +23,7 @@ from pydantic import BaseModel, Field
 from pymongo import MongoClient
 
 
-# ─────────────────────────────────────────────────────────
 # App
-# ─────────────────────────────────────────────────────────
 
 app = FastAPI(
     title="Global Economy Indicators API",
@@ -33,9 +31,7 @@ app = FastAPI(
     version="2.0.0",
 )
 
-# ─────────────────────────────────────────────────────────
 # Database connection settings (match task2 scripts)
-# ─────────────────────────────────────────────────────────
 
 MYSQL_CONFIG = {
     "host": os.getenv("MYSQL_HOST", "localhost"),
@@ -50,9 +46,7 @@ MONGO_DB = os.getenv("MONGO_DB", "global_economy_db")
 MONGO_COLLECTION = "economic_records"
 
 
-# ─────────────────────────────────────────────────────────
 # Pydantic schemas
-# ─────────────────────────────────────────────────────────
 
 class EconomicRecordCreate(BaseModel):
     """Body schema for creating a new economic record."""
@@ -100,9 +94,7 @@ class EconomicRecordUpdate(BaseModel):
     imf_exchange_rate: Optional[float] = None
 
 
-# ─────────────────────────────────────────────────────────
 # Database helpers
-# ─────────────────────────────────────────────────────────
 
 def _get_mysql():
     """Return a MySQL connection (raises 503 on failure)."""
@@ -184,9 +176,7 @@ def _flatten_mongo(doc: dict) -> dict:
     }
 
 
-# ─────────────────────────────────────────────────────────
 # Health check
-# ─────────────────────────────────────────────────────────
 
 @app.get("/health")
 def health_check():
